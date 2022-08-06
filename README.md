@@ -4,3 +4,7 @@
 使用Maven创建MyBatis项目
 Maven引入所需依赖
 根据数据库字段创建User实体类
+创建MyBatis核心核心配置文件
+创建mapper接口
+创建MyBatis的映射文件
+通过junit测试功能
