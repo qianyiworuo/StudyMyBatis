@@ -8,7 +8,7 @@
 -->
     <!--int insertUser();-->
     <insert id="insertUser">
-        INSERT INTO t_user(id, username, password, age, gender, email) VALUES(null, "ljc", "12345", 22, "女", "ljc@qq.com")
+        INSERT INTO t_user(id, username, password, age, gender, email) VALUES(null, "wd", "1234", 18, "男", "wd@qq.com")
     </insert>
     
 </mapper>
