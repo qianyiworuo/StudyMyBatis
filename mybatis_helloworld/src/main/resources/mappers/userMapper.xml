@@ -8,7 +8,28 @@
 -->
     <!--int insertUser();-->
     <insert id="insertUser">
-        INSERT INTO t_user(id, username, password, age, gender, email) VALUES(null, "wd", "1234", 18, "男", "wd@qq.com")
+        INSERT INTO t_user(id, username, password, age, gender, email) VALUES(null, "Niko", "123456", 40, "男", "niko@qq.com")
     </insert>
+    <!--int updateUser();-->
+    <update id="updateUser">
+        UPDATE t_user SET password = '123qwe'  WHERE id = 2
+    </update>
+    <!--int deleteUser();-->
+    <delete id="deleteUser">
+        DELETE FROM t_user WHERE id = 3
+    </delete>
+    <!--
+    查询需要添加resultType或resultMap属性
+    resultType：设置结果类型，即查询的数据要转换为的java类型
+    resultMap：自定义映射，处理一对多或多对一的映射关系或字段名和属性名不一致的情况
+    -->
+    <!--User getUserById();-->
+    <select id="getUserById" resultType="User">
+        SELECT id, username, password, age, gender, email FROM t_user WHERE id = 1
+    </select>
+    <!--User getAlUser();-->
+    <select id="getAllUser" resultType="User">
+        SELECT id, username, password, age, gender, email FROM t_user
+    </select>
     
 </mapper>

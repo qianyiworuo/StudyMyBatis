@@ -1,14 +1,18 @@
 package com.wd.mybatis.test;
 
 import com.wd.mybatis.mapper.UserMapper;
+import com.wd.mybatis.pojo.User;
+import com.wd.mybatis.utils.sqlSessionUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class MyBatisTest {
     @Test
@@ -39,6 +43,48 @@ public class MyBatisTest {
         System.out.println("结果：" + result);
         //关闭sqlSession对象
         sqlSession.close();
-
     }
+    @Test
+    public void updateUserTest(){
+        SqlSession sqlSession = sqlSessionUtil.getSqlSession("mybatis-config.xml", true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        int result = mapper.updateUser();
+        if(result >0){
+            System.out.println("更新结果：" + result);
+            sqlSession.close();
+        }
+    }
+    @Test
+    public void deleteUserTest(){
+        SqlSession sqlSession = sqlSessionUtil.getSqlSession("mybatis-config.xml", true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        int result = mapper.deleteUser();
+        if(result > 0){
+            System.out.println("删除结果：" + result);
+            sqlSession.close();
+        }
+    }
+    @Test
+    public void getUserByIdTest(){
+        SqlSession sqlSession = sqlSessionUtil.getSqlSession("mybatis-config.xml", true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = mapper.getUserById();
+        if(user != null){
+            System.out.println("查询结果：" + user);
+            sqlSession.close();
+        }
+    }
+    @Test
+    public void getAllUserTest(){
+        SqlSession sqlSession = sqlSessionUtil.getSqlSession("mybatis-config.xml", true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        List<User> allUserList = mapper.getAllUser();
+        if(allUserList != null){
+            for (int i = 0; i < allUserList.size() ; i++) {
+                System.out.println("查询结果：" + allUserList.get(i));
+            }
+            sqlSession.close();
+        }
+    }
+
 }
