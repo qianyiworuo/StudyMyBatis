@@ -14,4 +14,17 @@ Maven引入日志框架log4j
 MyBatis核心核心配置文件environment标签
 MyBatis核心核心配置文件properties标签
 MyBatis核心核心配置文件typeAliases标签(类型别名)
+MyBatis核心核心配置文件mappers标签
+使用Ideal创建好的模板搭建MyBatis框架项目(mybatis_parameter)
+MyBatis获取参数值得两种方式1(单个字面量)
+MyBatis获取参数值得两种方式2(多个字面量)
+MyBatis获取参数值得两种方式3(Map集合类型参数)
+MyBatis获取参数值得两种方式4(实体类类型参数)
+MyBatis获取参数值得两种方式5(@Param标识参数)
+MyBatis查询功能1(一个实体类对象或询一个list集合)
+MyBatis查询功能2(单个数据)
+MyBatis查询功能3(一条数据Map集合)
+MyBatis查询功能4(多条数据为map集合，方式一常用)
+MyBatis模糊查询('%${XXX}%'或CONCAT('%',#{XXX},'%'))
+
 

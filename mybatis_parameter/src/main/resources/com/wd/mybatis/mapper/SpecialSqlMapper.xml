@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wd.mybatis.mapper.SpecialSqlMapper">
+    <!--List<User> fuzzyQueryByUsername(String info);-->
+    <select id="fuzzyQueryByUsername" resultType="User">
+        <!--SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE '%${info}%'-->
+        <!--在xml配置文件中添加"%"通配符，借助mysql concat()函数-->
+        SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE CONCAT('%',#{info},'%')
+    </select>
+
+</mapper>

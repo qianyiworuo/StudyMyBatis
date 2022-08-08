@@ -1,0 +1,69 @@
+MyBatis获取参数值得两种方式1(单个字面量)
+    ${}和#{}
+    ${}的本质就是字符串拼接，#{}的本质就是占位符赋值
+    ${}使用字符串拼接的方式拼接sql，若为字符串类型或日期类型的字段进行赋值时，需要手动加单引号'${xxx}'；
+    #{}使用占位符赋值的方式拼接sql，此时为字符串类型或日期类型的字段进行赋值时，可以自动添加单引
+MyBatis获取参数值得两种方式2(多个字面量)
+    此时MyBatis会将参数放在Map集合中
+    1.以arg0,arg1...为，参数为value；
+    2.以param1,param2...为key，参数为value。
+    因此只需要通过${}和#{}访问map集合的key就可以获取相对应的值，注意${}需要手动加单引号。
+MyBatis获取参数值得两种方式3(Map集合类型参数)
+    若mapper接口中的方法需要的参数为多个时，此时可以手动创建map集合，将这些数据放在map中。
+MyBatis获取参数值得两种方式4(实体类类型参数)
+    若mapper接口中的方法参数为实体类对象时
+    此时可以使用${}和#{}，通过访问实体类对象中的属性名获取属性值，注意${}需要手动加单引号。
+MyBatis获取参数值得两种方式5(@Param标识参数)
+    可以通过@Param注解标识mapper接口中的方法参数
+    此时，会将这些参数放在map集合中，以@Param注解的value属性值为键，以参数为值；以
+    param1,param2...为键，以参数为值；只需要通过${}和#{}访问map集合的键就可以获取相对应
+    的值，注意${}需要手动加单引号。
+MyBatis查询功能1(一个实体类对象或询一个list集合)
+    当查询的数据为多条时，不能使用实体类作为返回值，否则会抛出异常
+    TooManyResultsException；但是若查询的数据只有一条，可以使用实体类或集合作为返回值
+MyBatis查询功能2(单个数据)
+    在MyBatis中，对于Java中常用的类型都设置了类型别名
+    例如： java.lang.Integer-->int|integer
+    例如： int-->_int|_integer
+    例如： Map-->map,List-->list
+MyBatis查询功能3(一条数据Map集合)
+    map集合中的key时无序的不可重复的，其排序是按照key所在类重写的equals()和hashcode()来进行的
+MyBatis查询功能4(多条数据为map集合，方式一常用)
+    方式一：
+    /**
+    * 查询所有用户信息为map集合
+    * @return
+    * 将表中的数据以map集合的方式查询，一条数据对应一个map；若有多条数据，就会产生多个map集合，此
+    时可以将这些map放在一个list集合中获取
+    */
+    List<Map<String, Object>> getAllUserToMap();
+    <!--Map<String, Object> getAllUserToMap();-->
+    <select id="getAllUserToMap" resultType="map">
+    select * from t_user
+    </select>
+    方式二
+    /**
+    * 查询所有用户信息为map集合
+    * @return
+    * 将表中的数据以map集合的方式查询，一条数据对应一个map；若有多条数据，就会产生多个map集合，并
+    且最终要以一个map的方式返回数据，此时需要通过@MapKey注解设置map集合的键，值是每条数据所对应的
+    map集合
+    */
+    @MapKey("id")
+    Map<String, Object> getAllUserToMap();
+    <!--Map<String, Object> getAllUserToMap();-->
+    <!--
+    {
+    1={password=123456, sex=男, id=1, age=23, username=admin},
+    2={password=123456, sex=男, id=2, age=23, username=张三},
+    3={password=123456, sex=男, id=3, age=23, username=张三}
+    }
+    -->
+    <select id="getAllUserToMap" resultType="map">
+    select * from t_user
+    </select>
+MyBatis模糊查询
+    1.在xml配置文件中添加"%"通配符，使用'%${XXX}%'
+      SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE '%${info}%'
+    2.在xml配置文件中添加"%"通配符，借助mysql concat()函数
+      SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE CONCAT('%',#{info},'%')
