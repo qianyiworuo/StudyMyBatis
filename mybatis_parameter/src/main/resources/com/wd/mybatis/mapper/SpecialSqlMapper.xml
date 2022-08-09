@@ -4,8 +4,21 @@
     <!--List<User> fuzzyQueryByUsername(String info);-->
     <select id="fuzzyQueryByUsername" resultType="User">
         <!--SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE '%${info}%'-->
-        <!--在xml配置文件中添加"%"通配符，借助mysql concat()函数-->
-        SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE CONCAT('%',#{info},'%')
+        <!--在xml配置文件中添加"%"通配符，借助mysql concat()函数
+        SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE CONCAT('%',#{info},'%')-->
+        SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE "%"#{info}"%"
     </select>
+    <!--int deleteBatchUser(@Param("ids")String ids);1,2-->
+    <delete id="deleteBatchUser">
+        DELETE FROM t_user WHERE id IN(${ids})
+    </delete>
+    <!--List<User> getAllUser(@Param("tableName")String tableName);-->
+    <select id="getAllUser" resultType="User">
+        SELECT * FROM ${tableName}
+    </select>
+    <!--void insertUser(User user);-->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_user (id, username, password, age, gender, email) VALUES (null, #{username}, #{password}, #{age}, #{gender}, #{email})
+    </insert>
 
 </mapper>

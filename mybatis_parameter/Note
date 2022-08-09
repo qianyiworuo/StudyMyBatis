@@ -67,3 +67,17 @@ MyBatis模糊查询
       SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE '%${info}%'
     2.在xml配置文件中添加"%"通配符，借助mysql concat()函数
       SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE CONCAT('%',#{info},'%')
+    3."%"#{XXX}"%"
+      SELECT id, username, password, age, gender, email FROM t_user WHERE username LIKE "%"#{info}"%"
+MyBatis批量删除
+    IN(${XXX})
+    DELETE FROM t_user WHERE id IN(${ids})
+MyBatis动态设置表名
+    ${XXX}
+MyBatis获取自增的主键
+    useGeneratedKeys="true" keyProperty="id"
+    useGeneratedKeys：当前添加功能是否使用自增主键
+    keyProperty：将添加后的自增主键数值赋值给实体类的属性
+
+
+

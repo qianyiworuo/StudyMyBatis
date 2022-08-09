@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wd.mybatis.mapper.EmpMapper">
+    <resultMap id="empResultMap" type="Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+    </resultMap>
+<!--List<Emp> getAllEmp();-->
+    <select id="getAllEmp" resultMap="empResultMap">
+        SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp
+    </select>
+    <select id="getAllEmpOld" resultType="Emp">
+        SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp
+    </select>
+    <resultMap id="empAndDeptByEmpIdResultMap" type="Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+        <association column="dept_id" property="dept" >
+            <association column="dept_id" property="deptId"></association>
+            <association column="dept_name" property="deptName"></association>
+        </association>
+    </resultMap>
+<!--Emp getEmpAndDeptByEmpId(@Param("empId")Integer empId);多对一-->
+    <select id="getEmpAndDeptByEmpId" resultMap="empAndDeptByEmpIdResultMap">
+        SELECT
+               A.emp_id, A.emp_name, A.age, A.gender, A.dept_id, B.dept_name
+        FROM t_emp A LEFT JOIN t_dept B
+            ON A.dept_id = B.dept_id
+        WHERE A.emp_id = #{empId}
+    </select>
+</mapper>

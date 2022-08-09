@@ -25,6 +25,9 @@ MyBatis查询功能1(一个实体类对象或询一个list集合)
 MyBatis查询功能2(单个数据)
 MyBatis查询功能3(一条数据Map集合)
 MyBatis查询功能4(多条数据为map集合，方式一常用)
-MyBatis模糊查询('%${XXX}%'或CONCAT('%',#{XXX},'%'))
-
+MyBatis模糊查询('%${XXX}%'或CONCAT('%',#{XXX},'%')或"%"#{XXX}"%")
+MyBatis批量删除
+MyBatis获取自增的主键
+自定义映射resultMap
+自定义映射resultMap(多对一)
 

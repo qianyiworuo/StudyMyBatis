@@ -1,0 +1,31 @@
+数据库字段名和实体类属性名不一致，处理方法
+    方式一
+    SQL语句字段起别名和属性名一致
+    方式二(常用)
+    当字段名符合MySQL命名规则使用_，属性名符合Java命名规则使用驼峰原则时
+    可以在mybatis核心配置文件中设置一个全局配置，将数据库字段名自动映射成实体类属性名
+    方式三
+    自定义映射resultMap
+        属性：
+        id：表示自定义映射的唯一标识
+        type：查询的数据要映射的实体类的类型
+            子标签：
+            id：设置主键的映射关系
+            result：设置普通字段的映射关
+            association：设置多对一的映射关系
+            collection：设置一对多的映射关系
+            属性：
+            property：设置映射关系中实体类中的属性名
+            column：设置映射关系中表中的字段名
+        <resultMap id="empResultMap" type="Emp">
+            <id column="emp_id" property="empId"></id>
+            <result column="emp_name" property="empName"></result>
+            <result column="age" property="age"></result>
+            <result column="gender" property="gender"></result>
+        </resultMap>
+    <!--List<Emp> getAllEmp();-->
+        <select id="getAllEmp" resultMap="empResultMap">
+            SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp
+        </select>
+
+自定义映射resultMap(多对一)
