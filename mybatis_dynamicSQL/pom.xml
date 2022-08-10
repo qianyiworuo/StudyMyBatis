@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.wd.mybatis</groupId>
-    <artifactId>mybatis_parameter</artifactId>
+    <artifactId>mybatis_dynamicSQL</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -20,7 +20,6 @@
         </plugins>
     </build>
     <packaging>jar</packaging>
-
     <dependencies>
         <!-- Mybatis核心 -->
         <dependency>
@@ -48,5 +47,6 @@
             <version>1.2.17</version>
         </dependency>
     </dependencies>
+
 
 </project>

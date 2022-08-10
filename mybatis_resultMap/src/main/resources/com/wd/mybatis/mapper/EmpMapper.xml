@@ -63,4 +63,8 @@
     <select id="getEmpAndDeptByStepOne" resultMap="getEmpAndDeptByStepResultMap">
         SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp WHERE emp_id = #{empId}
     </select>
+<!--Emp getDeptAndEmpByStepTwo(@Param("deptId") Integer deptId);-->
+    <select id="getDeptAndEmpByStepTwo" resultType="Emp">
+        SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp WHERE dept_id = #{deptId}
+    </select>
 </mapper>

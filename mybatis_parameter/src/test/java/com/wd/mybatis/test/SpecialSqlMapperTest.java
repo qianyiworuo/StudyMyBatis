@@ -53,6 +53,4 @@ public class SpecialSqlMapperTest {
         System.out.println(user.getId());
 
     }
-
-
 }

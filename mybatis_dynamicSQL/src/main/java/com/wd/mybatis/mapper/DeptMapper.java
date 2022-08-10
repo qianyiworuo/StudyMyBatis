@@ -3,8 +3,6 @@ package com.wd.mybatis.mapper;
 import com.wd.mybatis.pojo.Dept;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 public interface DeptMapper {
     //分步查询员工信息以及对应部门信息2
     Dept getEmpAndDeptByStepTwo(@Param("deptId") Integer deptId);
