@@ -14,22 +14,53 @@
     <select id="getAllEmpOld" resultType="Emp">
         SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp
     </select>
-    <resultMap id="empAndDeptByEmpIdResultMap" type="Emp">
+    <resultMap id="empAndDeptResultMap1" type="Emp">
         <id column="emp_id" property="empId"></id>
         <result column="emp_name" property="empName"></result>
         <result column="age" property="age"></result>
         <result column="gender" property="gender"></result>
-        <association column="dept_id" property="dept" >
-            <association column="dept_id" property="deptId"></association>
-            <association column="dept_name" property="deptName"></association>
+        <result column="dept_id" property="dept.deptId"></result>
+        <result column="dept_name" property="dept.deptName"></result>
+    </resultMap>
+    <resultMap id="empAndDeptResultMap" type="Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+        <!--javaType属性：java中的pojo实体类名-->
+        <association property="dept" javaType="Dept">
+            <id column="dept_id" property="deptId"></id>
+            <result column="dept_name" property="deptName"></result>
         </association>
     </resultMap>
 <!--Emp getEmpAndDeptByEmpId(@Param("empId")Integer empId);多对一-->
-    <select id="getEmpAndDeptByEmpId" resultMap="empAndDeptByEmpIdResultMap">
+    <select id="getEmpAndDeptByEmpId" resultMap="empAndDeptResultMap">
         SELECT
                A.emp_id, A.emp_name, A.age, A.gender, A.dept_id, B.dept_name
         FROM t_emp A LEFT JOIN t_dept B
             ON A.dept_id = B.dept_id
         WHERE A.emp_id = #{empId}
+    </select>
+<!--Emp getEmpAndDeptByStepOne(@Param("empId") Integer empId);-->
+    <resultMap id="getEmpAndDeptByStepResultMap" type="Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+        <!--
+            property：设置需要处理映射关系的属性的属性名
+            select：设置下一步分步查询sql的唯一标识
+            column：设置分步查询的条件，将上一步查询出的某个字段作为此次查询的条件
+            fetchType：在开启全局延迟加载的环境中，设置当前分步查询是否使用延迟加载
+            fetchType="lazy延迟加载/eager立即加载"
+        -->
+        <association property="dept"
+                     select="com.wd.mybatis.mapper.DeptMapper.getEmpAndDeptByStepTwo"
+                     column="dept_id"
+                     fetchType="lazy">
+        </association>
+    </resultMap>
+    <select id="getEmpAndDeptByStepOne" resultMap="getEmpAndDeptByStepResultMap">
+        SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp WHERE emp_id = #{empId}
     </select>
 </mapper>

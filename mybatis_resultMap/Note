@@ -29,3 +29,43 @@
         </select>
 
 自定义映射resultMap(多对一)
+    1.级联方式
+    <resultMap id="empAndDeptByEmpIdResultMap" type="Emp">
+            <id column="emp_id" property="empId"></id>
+            <result column="emp_name" property="empName"></result>
+            <result column="age" property="age"></result>
+            <result column="gender" property="gender"></result>
+            <result column="dept_id" property="dept.deptId"></result>
+            <result column="dept_name" property="dept.deptName"></result>
+    </resultMap>
+    2.association方式
+            <!--javaType属性：java中的pojo实体类全类名，如在核心配置文件中typeAliases下配置了，则只需实体类名-->
+            <association property="dept" javaType="Dept">
+                <id column="dept_id" property="deptId"></id>
+                <result column="dept_name" property="deptName"></result>
+            </association>
+    3.分步查询
+    <resultMap id="getEmpAndDeptByStepResultMap" type="Emp">
+            <id column="emp_id" property="empId"></id>
+            <result column="emp_name" property="empName"></result>
+            <result column="age" property="age"></result>
+            <result column="gender" property="gender"></result>
+            <!--
+                property：设置需要处理映射关系的属性的属性名
+                select：设置下一步分步查询sql的唯一标识
+                column：设置分步查询的条件，将上一步查询出的某个字段作为此次查询的条件
+            -->
+            <association property="dept"
+                         select="com.wd.mybatis.mapper.DeptMapper.getEmpAndDeptByStepTwo" column="dept_id">
+            </association>
+        </resultMap>
+    延迟加载
+        分步查询的优点：可以实现延迟加载
+        但是必须在核心配置文件中设置全局配置信息：
+        lazyLoadingEnabled：延迟加载的全局开关。当开启时，所有关联对象都会延迟加载
+        aggressiveLazyLoading：当开启时，任何方法的调用都会加载该对象的所有属性。否则，每个属性会按需加载
+        此时就可以实现按需加载，获取的数据是什么，就只会执行相应的sql。此时可通过association和
+        collection中的fetchType属性设置当前的分步查询是否使用延迟加载， fetchType="lazy(延迟加
+        载)|eager(立即加载)"
+自定义映射resultMap(一对多)
+    1.collection方式

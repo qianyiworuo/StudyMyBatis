@@ -22,9 +22,18 @@ public class EmpMapperTest {
     public void getEmpAndDeptByEmpIdTest() {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession("mybatis-config.xml", true);
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
-        Emp emp = mapper.getEmpAndDeptByEmpId(1);
+        Emp emp = mapper.getEmpAndDeptByEmpId(2);
         if (emp != null) {
             System.out.println(emp);
+        }
+    }
+    @Test
+    public void getEmpAndDeptStepTest() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession("mybatis-config.xml", true);
+        EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+        Emp emp = mapper.getEmpAndDeptByStepOne(1);
+        if (emp != null) {
+            System.out.println(emp.getEmpName());
         }
     }
 }

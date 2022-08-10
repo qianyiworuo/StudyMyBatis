@@ -29,5 +29,6 @@ MyBatis模糊查询('%${XXX}%'或CONCAT('%',#{XXX},'%')或"%"#{XXX}"%")
 MyBatis批量删除
 MyBatis获取自增的主键
 自定义映射resultMap
-自定义映射resultMap(多对一)
+自定义映射resultMap(多对一)3种方法
+自定义映射resultMap(一对多)2种方法
 

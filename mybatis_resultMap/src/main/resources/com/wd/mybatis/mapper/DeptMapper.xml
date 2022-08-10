@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wd.mybatis.mapper.DeptMapper">
+<!--Dept getEmpAndDeptByStepTwo(@Param("deptId") Integer deptId);-->
+    <select id="getEmpAndDeptByStepTwo" resultType="Dept">
+        SELECT dept_id, dept_name FROM t_dept WHERE dept_id = #{deptId}
+    </select>
+<!--Dept getDeptAndEmpByDeptId(@Param("deptId") Integer deptId);-->
+    <resultMap id="DeptAndEmpResultMap" type="Dept">
+        <id column="dept_id" property="deptId"></id>
+        <result column="dept_name" property="deptName"></result>
+        <collection property="emps" ofType="Emp">
+            <id column="emp_id" property="empId"></id>
+            <result column="emp_name" property="empName"></result>
+            <result column="age" property="age"></result>
+            <result column="gender" property="gender"></result>
+        </collection>
+    </resultMap>
+    <select id="getDeptAndEmpByDeptId" resultMap="DeptAndEmpResultMap">
+        SELECT
+               A.dept_id, A.dept_name, B.emp_id, B.emp_name, B.age, B.gender
+        FROM t_dept A LEFT JOIN t_emp B
+            ON A.dept_id = B.dept_id
+        WHERE A.dept_id = #{deptId}
+    </select>
+
+
+</mapper>
