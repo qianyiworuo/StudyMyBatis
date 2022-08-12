@@ -5,7 +5,6 @@ public class Emp {
     private String empName;
     private Integer age;
     private String gender;
-    private Dept dept;//多对一
 
 
     public Emp() {
@@ -50,13 +49,6 @@ public class Emp {
         this.gender = gender;
     }
 
-    public Dept getDept() {
-        return dept;
-    }
-
-    public void setDept(Dept dept) {
-        this.dept = dept;
-    }
 
     @Override
     public String toString() {
@@ -65,7 +57,6 @@ public class Emp {
                 ", empName='" + empName + '\'' +
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
-                ", dept=" + dept +
                 '}';
     }
 }
