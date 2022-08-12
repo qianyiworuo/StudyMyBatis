@@ -57,3 +57,59 @@ MyBatis动态sql(trim标签)
     </select>
 MyBatis动态sql(choose、when、otherwise不常用)
     choose、when、 otherwise相当于if...else if..else
+MyBatis动态sql(foreach标签)
+    1.批量添加
+    属性：collection：mapper接口方法传入的集合或数组名称
+          item：集合或数组中数据名称
+          separator：循环之间的分隔符
+          open：循环以什么开始
+          close：循环以什么结束
+    <insert id="insertBatchEmp">
+            INSERT INTO t_emp (emp_id, emp_name, age, gender, dept_id)  VALUES
+            <foreach collection="emps" item="emp" separator=",">
+                (null, #{emp.empName}, #{emp.age}, #{emp.gender}, null )
+            </foreach>
+    </insert>
+    2.批量删除
+    <!--void deleteBatchEmp(@Param("empIds") Integer[] empIds);-->
+        <delete id="deleteBatchEmp1">
+            DELETE FROM t_emp WHERE emp_id IN
+            (
+                <foreach collection="empIds" item="empId" separator=",">
+                    #{empId}
+                </foreach>
+            )
+        </delete>
+        <!--void deleteBatchEmp(@Param("empIds") Integer[] empIds);-->
+        <delete id="deleteBatchEmp2">
+            DELETE FROM t_emp WHERE emp_id IN
+            <foreach collection="empIds" item="empId" separator="," open="(" close=")">
+                #{empId}
+            </foreach>
+        </delete>
+        <!--void deleteBatchEmp(@Param("empIds") Integer[] empIds);-->
+        <delete id="deleteBatchEmp">
+            DELETE FROM t_emp WHERE
+            <foreach collection="empIds" item="empId" separator="OR">
+                emp_id = #{empId}
+            </foreach>
+        </delete>
+MyBatis动态sql(sql标签)
+    sql片段，可以记录一段公共sql片段，在使用的地方通过include标签进行引入
+     <sql id="empColumns">
+            emp_id, emp_name, age, gender
+     </sql>
+     <select>
+        SELECT <include refid="empColumns"></include> FROM t_emp
+            <trim prefix="WHERE" suffixOverrides="AND">
+                <if test="empName != null and empName != ''">
+                    emp_name = #{empName} AND
+                </if>
+                <if test="age != null and age != ''">
+                    age = #{age} AND
+                </if>
+                <if test="gender != null and gender != ''">
+                    gender = #{gender}
+                </if>
+            </trim>
+     </select>

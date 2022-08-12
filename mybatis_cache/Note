@@ -1,0 +1,13 @@
+MyBatis一级缓存
+    一级缓存是SqlSession级别的，通过同一个SqlSession查询的数据会被缓存，下次查询相同的数据，就
+    会从缓存中直接获取，不会从数据库重新访问。
+    17021438一级缓存17021438
+    17021438一级缓存17021438新的缓存17672517
+    使一级缓存失效的四种情况：
+    1) 不同的SqlSession对应不同的一级缓存
+    2) 同一个SqlSession但是查询条件不同
+    3) 同一个SqlSession两次查询期间执行了任何一次增删改操作
+    4) 同一个SqlSession两次查询期间手动清空了缓存(sqlSession.clearCache())
+MyBatis的二级缓存
+    二级缓存是SqlSessionFactory级别，通过同一个SqlSessionFactory创建的SqlSession查询的结果会被
+    缓存；此后若再次执行相同的查询语句，结果就会从缓存中获取

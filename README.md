@@ -34,4 +34,8 @@ MyBatis获取自增的主键
 MyBatis动态sql(if标签)
 MyBatis动态sql(where标签)
 MyBatis动态sql(trim标签)
-
+MyBatis动态sql(choose、when、otherwise不常用)
+MyBatis动态sql(foreach标签)
+MyBatis动态sql(sql标签)
+MyBatis一级缓存
+MyBatis的二级缓存
