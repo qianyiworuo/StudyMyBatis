@@ -1,1 +1,43 @@
 代码生成器
+    1.引入逆向工程核心插件(org.mybatis.generator)
+    2.配置generatorConfig.xml配置文件
+    3.选择maven下Plugins中的mybatis-generator，点击执行generate目标
+QBC查询风格
+    EmpExample empExample = new EmpExample();
+            empExample.createCriteria().andEmpNameEqualTo("张三");
+            empExample.or().andGenderEqualTo("男");
+            List<Emp> emps = mapper.selectByExample(empExample);
+            if (emps != null){
+                emps.forEach(System.out::println);
+                sqlSession.close();
+            }
+分页查询
+    1.添加依赖
+    <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper</artifactId>
+        <version>5.2.0</version>
+    </dependency>
+    2.在MyBatis的核心配置文件中配置插件
+    3.分页相关信息
+    PageInfo{
+    pageNum=8, pageSize=4, size=2, startRow=29, endRow=30, total=30, pages=8,
+    list=Page{count=true, pageNum=8, pageSize=4, startRow=28, endRow=32, total=30,
+    pages=8, reasonable=false, pageSizeZero=false},
+    prePage=7, nextPage=0, isFirstPage=false, isLastPage=true, hasPreviousPage=true,
+    hasNextPage=false, navigatePages=5, navigateFirstPage4, navigateLastPage8,
+    navigatepageNums=[4, 5, 6, 7, 8]
+    }
+    pageNum：当前页的页码
+    pageSize：每页显示的条数
+    size：当前页显示的真实条数
+    total：总记录数
+    pages：总页数
+    prePage：上一页的页码
+    nextPage：下一页的页码
+    isFirstPage/isLastPage：是否为第一页/最后一页
+    hasPreviousPage/hasNextPage：是否存在上一页/下一页
+    navigatePages：导航分页的页码数
+    navigatepageNums：导航分页的页码，[1,2,3,4,5]
+
+
