@@ -22,12 +22,6 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <!--Maven依赖-->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
-        </dependency>
         <!-- Mybatis核心 -->
         <dependency>
             <groupId>org.mybatis</groupId>

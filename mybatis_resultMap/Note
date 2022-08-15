@@ -69,7 +69,8 @@
                 column：设置分步查询的条件，将上一步查询出的某个字段作为此次查询的条件
             -->
             <association property="dept"
-                         select="com.wd.mybatis.mapper.DeptMapper.getEmpAndDeptByStepTwo" column="dept_id">
+                         select="com.wd.mybatis.mapper.DeptMapper.getEmpAndDeptByStepTwo"
+                         column="dept_id">
             </association>
         </resultMap>
     延迟加载

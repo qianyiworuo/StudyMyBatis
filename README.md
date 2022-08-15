@@ -41,3 +41,6 @@ MyBatis一级缓存
 MyBatis的二级缓存
 MBG代码生成器
 分页查询
+IOC容器在Spring中的实现
+IOC创建对象的方式
+DI依赖注入(为Bean类属性赋值)
