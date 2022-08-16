@@ -1,13 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="studentOne" class="com.wd.spring.pojo.Student"/>
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+    <bean id="studentOne" class="com.wd.spring.pojo.Student">
+        <property name="sId" value="1001"></property>
+        <property name="sName" value="张三"></property>
+        <property name="age" value="18"></property>
+        <property name="gender" value="男"></property>
+    </bean>
     <bean id="studentTwo" class="com.wd.spring.pojo.Student">
-        <property name="sId" value="1001"/>
-        <property name="sName" value="张三"/>
-        <property name="age" value="18"/>
-        <property name="gender" value="男"/>
+        <constructor-arg value="1002"></constructor-arg>
+        <constructor-arg value="李四"></constructor-arg>
+        <constructor-arg value="女" ></constructor-arg>
+        <constructor-arg value="19" name="age"></constructor-arg>
+    </bean>
+    <bean id="studentThree" class="com.wd.spring.pojo.Student">
+        <property name="sId" value="1003"></property>
+        <property name="sName">
+            <null/>
+        </property>
+        <property name="age" value="18"></property>
+        <property name="gender"><value><![CDATA[《男》]]></value></property>
+    </bean>
+    <bean id="studentFour" class="com.wd.spring.pojo.Student">
+        <property name="sId" value="1004"></property>
+        <property name="sName" value="赵六"></property>
+        <property name="age" value="16"></property>
+        <property name="gender" value="男"></property>
+        <property name="score" value="88"></property>
+        <property name="clazz" ref="clazzOne"></property>
+    </bean>
+    <bean id="studentFive" class="com.wd.spring.pojo.Student">
+        <property name="sId" value="1005"></property>
+        <property name="sName" value="小倩"></property>
+        <property name="age" value="20"></property>
+        <property name="gender" value="女"></property>
+        <property name="score" value="89"></property>
+        <property name="clazz">
+            <bean id="clazzInner" class="com.wd.spring.pojo.Clazz">
+                <property name="cId" value="002"></property>
+                <property name="cName" value="没头脑"></property>
+            </bean>
+        </property>
+    </bean>
+    <bean id="studentSix" class="com.wd.spring.pojo.Student">
+        <property name="sId" value="1006"></property>
+        <property name="sName" value="爱坤"></property>
+        <property name="age" value="22"></property>
+        <property name="gender" value="女"></property>
+        <property name="score" value="90"></property>
+        <property name="clazz">
+            <bean id="clazzInner" class="com.wd.spring.pojo.Clazz">
+                <property name="cId" value="002"></property>
+                <property name="cName" value="没头脑"></property>
+            </bean>
+        </property>
+        <property name="hobby">
+            <array>
+                <value>唱跳</value>
+                <value>rap</value>
+                <value>篮球</value>
+            </array>
+        </property>
+    </bean>
+    <bean id="studentSeven" class="com.wd.spring.pojo.Student">
+        <property name="sId" value="1007"></property>
+        <property name="sName" value="小青"></property>
+        <property name="age" value="23"></property>
+        <property name="gender" value="女"></property>
+        <property name="score" value="91"></property>
+        <property name="clazz">
+            <bean id="clazzInner" class="com.wd.spring.pojo.Clazz">
+                <property name="cId" value="002"></property>
+                <property name="cName" value="没头脑"></property>
+            </bean>
+        </property>
+        <property name="hobby">
+            <array>
+                <value>唱跳</value>
+                <value>rap</value>
+                <value>篮球</value>
+            </array>
+        </property>
+        <property name="teacherMap" ref="teacherMap">
+<!--            <map>-->
+<!--                <entry key="01" value-ref="teacherOne"></entry>-->
+<!--                <entry key="02" value-ref="teacherTwo"></entry>-->
+<!--            </map>-->
+        </property>
     </bean>
 
+
+
+    <bean id="clazzOne" class="com.wd.spring.pojo.Clazz">
+        <property name="cId" value="001"></property>
+        <property name="cName" value="零基础"></property>
+        <property name="students" ref="studentList">
+<!--            <list>-->
+<!--                <ref bean="studentOne"></ref>-->
+<!--                <ref bean="studentTwo"></ref>-->
+<!--                <ref bean="studentThree"></ref>-->
+<!--            </list>-->
+        </property>
+    </bean>
+<!--配置集合类型的Bean，需要使用util约束-->
+    <util:list id="studentList">
+        <ref bean="studentOne"></ref>
+        <ref bean="studentThree"></ref>
+        <ref bean="studentTwo"></ref>
+    </util:list>
+    <util:map id="teacherMap">
+        <entry key="01" value-ref="teacherOne"></entry>
+        <entry key="02" value-ref="teacherTwo"></entry>
+    </util:map>
+
+
+    <bean id="teacherOne" class="com.wd.spring.pojo.Teacher">
+        <property name="teacherId" value="01"></property>
+        <property name="teacherName" value="唱跳师"></property>
+    </bean>
+    <bean id="teacherTwo" class="com.wd.spring.pojo.Teacher">
+        <property name="teacherId" value="02"></property>
+        <property name="teacherName" value="Rap师"></property>
+    </bean>
 </beans>

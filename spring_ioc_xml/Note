@@ -22,16 +22,204 @@ IOC创建对象的方式
     型』的返回结果，只要返回的是true就可以认定为和类型匹配，能够获取到。
 DI依赖注入(为Bean类属性赋值)
     Setter注入
-    <bean id="studentOne" class="com.atguigu.spring.bean.Student">
-    <!-- property标签：通过组件类的setXxx()方法给组件对象设置属性 -->
-    <!-- name属性：指定属性名（这个属性名是getXxx()、setXxx()方法定义的，和成员变量无关）
-    -->
-    <!-- value属性：指定属性值 -->
-    <property name="id" value="1001"></property>
-    <property name="name" value="张三"></property>
-    <property name="age" value="23"></property>
-    <property name="sex" value="男"></property>
-    </bean>
+        <bean id="studentOne" class="com.atguigu.spring.bean.Student">
+        <!-- property标签：通过组件类的setXxx()方法给组件对象设置属性 -->
+        <!-- name属性：指定属性名（这个属性名是getXxx()、setXxx()方法定义的，和成员变量无关）
+        -->
+        <!-- value属性：指定属性值 -->
+        <property name="id" value="1001"></property>
+        <property name="name" value="张三"></property>
+        <property name="age" value="23"></property>
+        <property name="sex" value="男"></property>
+        </bean>
+    依赖注入之构造器注入
+        constructor-arg标签还有两个属性可以进一步描述构造器参数：
+        index属性：指定参数所在位置的索引（从0开始）
+        name属性：指定参数名
+        <bean id="studentTwo" class="com.wd.spring.pojo.Student">
+            <constructor-arg value="1002"></constructor-arg>
+            <constructor-arg value="李四"></constructor-arg>
+            <constructor-arg value="女" ></constructor-arg>
+            <constructor-arg value="19" name="age"></constructor-arg>
+        </bean>
+    特殊值处理
+        什么是字面量？
+        int a = 10;
+        声明一个变量a，初始化为10，此时a就不代表字母a了，而是作为一个变量的名字。当我们引用a
+        的时候，我们实际上拿到的值是10。
+        而如果a是带引号的：'a'，那么它现在不是一个变量，它就是代表a这个字母本身，这就是字面
+        量。所以字面量没有引申含义，就是我们看到的这个数据本身。
+        <!-- 使用value属性给bean的属性赋值时，Spring会把value属性的值看做字面量 -->
+        <property name="name" value="张三"/>
+        null值
+        <property name="name">
+        <null />
+        </property>
+        注意：
+        <property name="name" value="null"></property>
+        以上写法，为name所赋的值是字符串nul
+        CDATA节
+        <property name="expression">
+        <!-- 解决方案二：使用CDATA节 -->
+        <!-- CDATA中的C代表Character，是文本、字符的含义，CDATA就表示纯文本数据 -->
+        <!-- XML解析器看到CDATA节就知道这里是纯文本，就不会当作XML标签或属性来解析 -->
+        <!-- 所以CDATA节中写什么符号都随意 -->
+        <value><![CDATA[a < b]]></value>
+        </property>
+    类类型赋值
+        多对一：对一对应对象
+        一对多：对多对应集合
+        1.引用外部Bean
+        <bean id="studentFour" class="com.wd.spring.pojo.Student">
+                <property name="sId" value="1004"></property>
+                <property name="sName" value="赵六"></property>
+                <property name="age" value="16"></property>
+                <property name="gender" value="男"></property>
+                <property name="score" value="88"></property>
+                <property name="clazz" ref="clazzOne"></property>
+        </bean>
+        <bean id="clazzOne" class="com.wd.spring.pojo.Clazz">
+                <property name="cId" value="001"></property>
+                <property name="cName" value="零基础"></property>
+        </bean>
+        2.级联方式
+        <bean id="studentFour" class="com.atguigu.spring.bean.Student">
+        <property name="id" value="1004"></property>
+        <property name="name" value="赵六"></property>
+        <property name="age" value="26"></property>
+        <property name="sex" value="女"></property>
+        <!-- 一定先引用某个bean为属性赋值，才可以使用级联方式更新属性 -->
+        <property name="clazz" ref="clazzOne"></property>
+        <property name="clazz.clazzId" value="3333"></property>
+        <property name="clazz.clazzName" value="最强王者班"></property>
+        </bean>
+        3.内部Bean(只能在当前Bean的内部使用，不能直接通过IOC容器获取)
+        <bean id="studentFive" class="com.wd.spring.pojo.Student">
+                <property name="sId" value="1005"></property>
+                <property name="sName" value="小倩"></property>
+                <property name="age" value="20"></property>
+                <property name="gender" value="女"></property>
+                <property name="score" value="89"></property>
+                <property name="clazz">
+                    <bean id="clazzInner" class="com.wd.spring.pojo.Clazz">
+                        <property name="cId" value="002"></property>
+                        <property name="cName" value="没头脑"></property>
+                    </bean>
+                </property>
+        </bean>
+    数组类型赋值
+        <bean id="studentSix" class="com.wd.spring.pojo.Student">
+                <property name="sId" value="1006"></property>
+                <property name="sName" value="爱坤"></property>
+                <property name="age" value="22"></property>
+                <property name="gender" value="女"></property>
+                <property name="score" value="90"></property>
+                <property name="clazz">
+                    <bean id="clazzInner" class="com.wd.spring.pojo.Clazz">
+                        <property name="cId" value="002"></property>
+                        <property name="cName" value="没头脑"></property>
+                    </bean>
+                </property>
+                <property name="hobby">
+                    <array>
+                        <value>唱跳</value>
+                        <value>rap</value>
+                        <value>篮球</value>
+                    </array>
+                </property>
+        </bean>
+    List集合类型赋值(若为Set集合类型属性赋值，只需要将其中的list标签改为set标签即可)
+         <bean id="clazzOne" class="com.wd.spring.pojo.Clazz">
+                <property name="cId" value="001"></property>
+                <property name="cName" value="零基础"></property>
+                <property name="students">
+                    <list>
+                        <ref bean="studentOne"></ref>
+                        <ref bean="studentTwo"></ref>
+                        <ref bean="studentThree"></ref>
+                    </list>
+                </property>
+         </bean>
+
+         <bean id="clazzOne" class="com.wd.spring.pojo.Clazz">
+                 <property name="cId" value="001"></property>
+                 <property name="cName" value="零基础"></property>
+                 <property name="students" ref="studentList"></property>
+         </bean>
+         <!--配置集合类型的Bean，需要使用util约束-->
+         <util:list id="studentList">
+                 <ref bean="studentOne"></ref>
+                 <ref bean="studentThree"></ref>
+                 <ref bean="studentTwo"></ref>
+         </util:list>
+    Map集合类型赋值
+        <bean id="studentSeven" class="com.wd.spring.pojo.Student">
+                <property name="sId" value="1007"></property>
+                <property name="sName" value="小青"></property>
+                <property name="age" value="23"></property>
+                <property name="gender" value="女"></property>
+                <property name="score" value="91"></property>
+                <property name="clazz">
+                    <bean id="clazzInner" class="com.wd.spring.pojo.Clazz">
+                        <property name="cId" value="002"></property>
+                        <property name="cName" value="没头脑"></property>
+                    </bean>
+                </property>
+                <property name="hobby">
+                    <array>
+                        <value>唱跳</value>
+                        <value>rap</value>
+                        <value>篮球</value>
+                    </array>
+                </property>
+                <property name="teacherMap">
+                    <map>
+                        <entry key="01" value-ref="teacherOne"></entry>
+                        <entry key="02" value-ref="teacherTwo"></entry>
+                    </map>
+                </property>
+        </bean>
+        <bean id="teacherOne" class="com.wd.spring.pojo.Teacher">
+                <property name="teacherId" value="01"></property>
+                <property name="teacherName" value="唱跳师"></property>
+            </bean>
+            <bean id="teacherTwo" class="com.wd.spring.pojo.Teacher">
+                <property name="teacherId" value="02"></property>
+                <property name="teacherName" value="Rap师"></property>
+        </bean>
+
+        <bean id="studentSeven" class="com.wd.spring.pojo.Student">
+                <property name="sId" value="1007"></property>
+                <property name="sName" value="小青"></property>
+                <property name="age" value="23"></property>
+                <property name="gender" value="女"></property>
+                <property name="score" value="91"></property>
+                <property name="clazz">
+                    <bean id="clazzInner" class="com.wd.spring.pojo.Clazz">
+                        <property name="cId" value="002"></property>
+                        <property name="cName" value="没头脑"></property>
+                    </bean>
+                </property>
+                <property name="hobby">
+                    <array>
+                        <value>唱跳</value>
+                        <value>rap</value>
+                        <value>篮球</value>
+                    </array>
+                </property>
+                <property name="teacherMap" ref="teacherMap"></property>
+        </bean>
+        util:map id="teacherMap">
+                <entry key="01" value-ref="teacherOne"></entry>
+                <entry key="02" value-ref="teacherTwo"></entry>
+        </util:map>
+    p命名空间
+        引入p命名空间后，可以通过以下方式为bean的各个属性赋值
+        <bean id="studentSix" class="com.atguigu.spring.bean.Student"
+        p:id="1006" p:name="小明" p:clazz-ref="clazzOne" p:teacherMap-ref="teacherMap"></bean>
+引入外部属性文件(数据源)
+    <!-- 引入外部属性文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
 
 
 
