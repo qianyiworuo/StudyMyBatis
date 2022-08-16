@@ -53,3 +53,6 @@ DI依赖注入(为Bean类属性赋值)
     Map集合类型赋值
     p命名空间
 引入外部属性文件(数据源)
+Bean的作用域
+Bean的生命周期
+FactoryBean

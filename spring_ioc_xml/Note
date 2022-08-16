@@ -220,6 +220,36 @@ DI依赖注入(为Bean类属性赋值)
 引入外部属性文件(数据源)
     <!-- 引入外部属性文件 -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
-
+Bean的作用域
+    <!--
+    设置Bean的作用域
+    scope属性：取值singleton（默认值），bean在IOC容器中只有一个实例，IOC容器初始化时创建
+    对象 -->
+    <!-- scope属性：取值prototype，bean在IOC容器中可以有多个实例，getBean()时创建对象 -->
+    <bean class="com.atguigu.bean.User" scope="prototype"></bean>
+Bean的生命周期
+    bean对象创建（调用无参构造器）
+    给bean对象设置属性
+    bean对象初始化之前操作（由bean的后置处理器负责）
+    bean对象初始化（需在配置bean时指定init-method初始化方法）
+    bean对象初始化之后操作（由bean的后置处理器负责）
+    bean对象就绪可以使用
+    bean对象销毁（需在配置bean时指定销毁方法）
+    IOC容器关闭
+    bean的后置处理器会在生命周期的初始化前后添加额外的操作，需要实现BeanPostProcessor接口，
+    且配置到IOC容器中，需要注意的是，bean后置处理器不是单独针对某一个bean生效，而是针对IOC容
+    器中所有bean都会执行
+    注意：若Bean的作用域为单例时，生命周期：1、创建对象生命周期：2、依赖注入 生命周期：3、初始化会在获取IOC容器时执行
+          若Bean的作用域为多例时，生命周期前三步，会在获取Bean时执行。
+FactoryBean
+    FactoryBean是Spring提供的一种整合第三方框架的常用机制。和普通的bean不同，配置一个
+    FactoryBean类型的bean，在获取bean的时候得到的并不是class属性中配置的这个类的对象，而是
+    getObject()方法的返回值。通过这种机制，Spring可以帮我们把复杂组件创建的详细过程和繁琐细节都
+    屏蔽起来，只把最简洁的使用界面展示给我们。
+    将来我们整合Mybatis时，Spring就是通过FactoryBean机制来帮我们创建SqlSessionFactory对象的。
+    FactoryBean：一个接口
+    getObject()：将一个对象交给IOC容器进行管理
+    getObjectType()：设置提供对象的类型
+    isSingleton()：所提供的对象是否为单例
 
 
