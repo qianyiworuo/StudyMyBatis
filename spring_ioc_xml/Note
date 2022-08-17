@@ -226,7 +226,7 @@ Bean的作用域
     scope属性：取值singleton（默认值），bean在IOC容器中只有一个实例，IOC容器初始化时创建
     对象 -->
     <!-- scope属性：取值prototype，bean在IOC容器中可以有多个实例，getBean()时创建对象 -->
-    <bean class="com.atguigu.bean.User" scope="prototype"></bean>
+    <bean class="com.wd.bean.User" scope="prototype"></bean>
 Bean的生命周期
     bean对象创建（调用无参构造器）
     给bean对象设置属性
@@ -251,5 +251,15 @@ FactoryBean
     getObject()：将一个对象交给IOC容器进行管理
     getObjectType()：设置提供对象的类型
     isSingleton()：所提供的对象是否为单例
-
+基于xml的自动装配
+    自动装配：
+    根据指定的策略，在IOC容器中匹配某一个bean，自动为指定的bean中所依赖的类类型或接口类型属性赋值
+    可以在Bean标签中的autowire属性设置自动装配策略
+    自动装配方式：byType(常用)
+    byType：根据类型匹配IOC容器中的某个兼容类型的bean，为属性自动赋值
+    若在IOC中，没有任何一个兼容类型的bean能够为属性赋值，则该属性不装配，即值为默认值null
+    若在IOC中，有多个兼容类型的bean能够为属性赋值，则抛出异常NoUniqueBeanDefinitionException
+    byName
+    byName：将要赋值的属性的属性名作为Bean的id在IOC容器中匹配某个Bean，为此属性赋值。
+    总结：当匹配到多个Bean时，使用byName进行自动匹配
 

@@ -56,3 +56,4 @@ DI依赖注入(为Bean类属性赋值)
 Bean的作用域
 Bean的生命周期
 FactoryBean
+基于xml的自动装配
