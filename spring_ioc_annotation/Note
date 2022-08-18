@@ -1,0 +1,72 @@
+基于注解管理bean
+    什么是注解
+        和 XML 配置文件一样，注解本身并不能执行，注解本身仅仅只是做一个标记，具体的功能是框架检测
+        到注解标记的位置，然后针对这个位置按照注解标记的功能来执行具体操作。
+        本质上：所有一切的操作都是Java代码来完成的，XML和注解只是告诉框架中的Java代码如何执行。
+    什么是扫描
+        Spring 为了知道程序员在哪些地方标记了什么注解，就需要通过扫描的方式，来进行检测。然后根据注
+        解进行后续操作。
+    标识组件的常用注解
+        @Component：将类标识为普通组件 @Controller：将类标识为控制层组件
+        @Service：将类标识为业务层组件 @Repository：将类标识为持久层组件
+        @Controller、@Service、@Repository这三个注解只是在@Component注解的基础上起了三个新的名字。
+        对于Spring使用IOC容器管理这些组件来说没有区别。所以@Controller、@Service、@Repository这
+        三个注解只是给开发人员看的，让我们能够便于分辨组件的作用。
+        注意：虽然它们本质上一样，但是为了代码的可读性，为了程序结构严谨我们肯定不能随便胡乱标记。
+    组件扫描
+        1.基本扫描
+            <context:component-scan base-package="com.wd.spring"></context:component-scan>
+        2.指定要排除的组件
+            <context:component-scan base-package="com.wd">
+            <!-- context:exclude-filter标签：指定排除规则 -->
+            <!--
+            type：设置排除或包含的依据
+            type="annotation"，根据注解排除，expression中设置要排除的注解的全类名
+            type="assignable"，根据类型排除，expression中设置要排除的类型的全类名
+            -->
+            <context:exclude-filter type="annotation"
+            expression="org.springframework.stereotype.Controller"/>
+            <!--<context:exclude-filter type="assignable"
+            expression="com.wd.controller.UserController"/>-->
+            </context:component-scan>
+        3.仅扫描指定组件
+            <context:component-scan base-package="com.wd" use-default-filters="false">
+            <!-- context:include-filter标签：指定在原有扫描规则的基础上追加的规则 -->
+            <!-- use-default-filters属性：取值false表示关闭默认扫描规则 -->
+            <!-- 此时必须设置use-default-filters="false"，因为默认规则即扫描指定包下所有类 -->
+            <!--
+            type：设置排除或包含的依据
+            type="annotation"，根据注解排除，expression中设置要排除的注解的全类名
+            type="assignable"，根据类型排除，expression中设置要排除的类型的全类名
+            -->
+            <context:include-filter type="annotation"
+            expression="org.springframework.stereotype.Controller"/>
+            <!--<context:include-filter type="assignable"
+            expression="com.wd.controller.UserController"/>-->
+            </context:component-scan>
+    组件所对应的bean的id
+        在我们使用XML方式管理bean的时候，每个bean都有一个唯一标识，便于在其他地方引用。现在使用
+        注解后，每个组件仍然应该有一个唯一标识。
+        默认情况
+        类名首字母小写就是bean的id。例如：UserController类对应的bean的id就是userController。
+        自定义bean的id
+        可通过标识组件的注解的value属性设置自定义的bean的id
+        @Service("userService")//默认为userServiceImpl public class UserServiceImpl implements
+        UserService {}
+基于注解的自动装配
+    @Autowired
+    在成员变量上直接标记@Autowired注解即可完成自动装配，不需要提供setXxx()方法。以后我们在项
+    目中的正式用法就是这样。
+    @Autowired注解可以标记在构造器和set方法上
+    @Autowired工作流程
+    首先根据所需要的组件类型到IOC容器中查找
+        能够找到唯一的bean：直接执行装配
+        如果完全找不到匹配这个类型的bean：装配失败
+        和所需类型匹配的bean不止一个
+            没有@Qualifier注解：根据@Autowired标记位置成员变量的变量名作为bean的id进行
+            匹配
+                能够找到：执行装配
+                找不到：装配失败
+            使用@Qualifier注解：根据@Qualifier注解中指定的名称作为bean的id进行匹配
+                能够找到：执行装配
+                找不到：装配失败

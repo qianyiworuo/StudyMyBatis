@@ -57,3 +57,5 @@ Bean的作用域
 Bean的生命周期
 FactoryBean
 基于xml的自动装配
+基于注解管理bean
+基于注解的自动装配
