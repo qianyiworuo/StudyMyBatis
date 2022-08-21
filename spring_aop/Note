@@ -1,0 +1,116 @@
+AOP
+    AOP（Aspect Oriented Programming）是一种设计思想，是软件设计领域中的面向切面编程，它是面
+    向对象编程的一种补充和完善，它以通过预编译方式和运行期动态代理方式实现在不修改源代码的情况
+    下给程序动态统一添加额外功能的一种技术。
+    相关术语
+        ①横切关注点
+        从每个方法中抽取出来的同一类非核心业务。在同一个项目中，我们可以使用多个横切关注点对相关方
+        法进行多个不同方面的增强。
+        这个概念不是语法层面天然存在的，而是根据附加功能的逻辑上的需要：有十个附加功能，就有十个横
+        切关注点。
+        ②通知
+        每一个横切关注点上要做的事情都需要写一个方法来实现，这样的方法就叫通知方法。
+        前置通知：在被代理的目标方法前执行
+        返回通知：在被代理的目标方法成功结束后执行（寿终正寝）
+        异常通知：在被代理的目标方法异常结束后执行（死于非命）
+        后置通知：在被代理的目标方法最终结束后执行（盖棺定论）
+        环绕通知：使用try...catch...finally结构围绕整个被代理的目标方法，包括上面四种通知对应的所
+        有位置。
+        ③切面
+        封装通知方法的类。
+        ④目标
+        被代理的目标对象。
+        ⑤代理
+        向目标对象应用通知之后创建的代理对象。
+        ⑥连接点
+        是一个纯逻辑概念，不是语法定义的，相当于横切关注点的位置
+        ⑦切入点
+        定位连接点的方式。
+        每个类的方法中都包含多个连接点，所以连接点是类中客观存在的事物（从逻辑上来说）。
+    基于注解的AOP
+        动态代理（InvocationHandler）：JDK原生的实现方式，需要被代理的目标类必须实现接口。因
+        为这个技术要求代理对象和目标对象实现同样的接口（兄弟两个拜把子模式）。
+        cglib：通过继承被代理的目标类（认干爹模式）实现代理，所以不需要目标类实现接口。
+        AspectJ：本质上是静态代理，将代理逻辑“织入”被代理的目标类编译得到的字节码文件，所以最
+        终效果是动态的。weaver就是织入器。Spring只是借用了AspectJ中的注解。
+        准备工作
+            ①添加依赖
+            在IOC所需依赖基础上再加入下面依赖即可：
+            <!-- spring-aspects会帮我们传递过来aspectjweaver -->
+                  <dependency>
+                       <groupId>org.springframework</groupId>
+                       <artifactId>spring-aspects</artifactId>
+                       <version>5.3.1</version>
+                  </dependency>
+            ②准备被代理的目标资源
+            接口：public interface Calculator
+            实现类：public class CalculatorPureImpl implements Calculator
+            在Spring的配置文件中配置：
+            <!--
+            基于注解的AOP的实现：
+            1、将目标对象和切面交给IOC容器管理（注解+扫描）
+            2、开启AspectJ的自动代理，为目标对象自动生成代理
+            3、将切面类通过注解@Aspect标识
+            -->
+            <context:component-scan base-package="com.atguigu.aop.annotation">
+            </context:component-scan>
+            <aop:aspectj-autoproxy />
+        各种通知
+            /**
+             * @Before前置通知，在目标对象方法执行前执行
+             * @After后置通知，在目标对象方法的finally字句中执行
+             * @AfterReturning返回通知，在目标对象方法的返回值之后执行，若要获取目标对象方法的返回值，需要设置此注解的
+             * returning属性的值，并且在此注解方法下设置参数，参数名要与属性的值一致。
+             *      @AfterReturning(value = "pointCut()",returning = "result")
+             *      public void afterReturningAdviceMethod(JoinPoint joinPoint, Object result)
+             * @AfterThrowing异常通知：在目标对象方法的catch字句中执行，若要获取目标对象方法的异常，需要设置此注解的
+             * returning属性的值，并且在此注解方法下设置参数，参数名要与属性的值一致。
+             *      @AfterThrowing(value = "pointCut()",throwing = "ex")
+             *      public void afterThrowingAdviceMethod(JoinPoint joinPoint, Throwable ex)
+             *@Around环绕通知：环绕通知下的方法返回值必须要于目标方法的返回值一致
+             *
+             * 切入点表达式：设置在标识通知的注解的("")之中
+             * @Before("execution(public int com.wd.spring.aop.annotation.CalculatorImpl.add(int, int))")
+             * @Before("execution(* com.wd.spring.aop.annotation.CalculatorImpl.*(..))")
+             * 第一个*表示任意的访问修饰符和返回值类型
+             * 第二个*表示类中的任意方法
+             * ..表示任意地参数列表
+             * 类也可以使用*表示包下所有的类
+             *
+             * 获取切入点方法信息
+             *  //获取连接点的方法名：signature.getName()
+             * Signature signature = joinPoint.getSignature();
+             * //获取点解点方法的参数
+             * Object[] args = joinPoint.getArgs();
+             * Arrays.toString(args));
+             *
+             * 重用切入点表达式
+             * @Pointcut("execution(* com.wd.spring.aop.annotation.CalculatorImpl.*(..))")
+             *  public void pointCut(){
+             *  }
+             *  使用方式
+             *  @Before("pointCut()")
+             */
+             各种通知的执行顺序：
+                Spring版本5.3.x以前：
+                    前置通知
+                    返回通知
+                    后置通知
+                    异常通知
+             Spring版本5.3.x以后：
+                    前置通知
+                    返回通知
+                    异常通知
+                    后置通知
+        切面的优先级
+             相同目标方法上同时存在多个切面时，切面的优先级控制切面的内外嵌套顺序。
+                优先级高的切面：外面
+                优先级低的切面：里面
+             使用@Order注解可以控制切面的优先级：(声明在切面类上)
+                @Order(较小的数)：优先级高
+                @Order(较大的数)：优先级低
+
+
+
+
+

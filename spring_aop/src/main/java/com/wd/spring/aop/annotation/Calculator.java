@@ -1,4 +1,4 @@
-package com.wd.spring.proxy;
+package com.wd.spring.aop.annotation;
 
 public interface Calculator {
     int add(int i, int j);

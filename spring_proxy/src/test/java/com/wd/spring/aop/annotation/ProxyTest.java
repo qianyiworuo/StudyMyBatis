@@ -1,6 +1,5 @@
-package com.wd.spring.proxy;
+package com.wd.spring.aop.annotation;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.junit.Test;
 
 import java.util.Scanner;

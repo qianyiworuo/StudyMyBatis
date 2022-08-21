@@ -1,4 +1,4 @@
-package com.wd.spring.proxy;
+package com.wd.spring.aop.annotation;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

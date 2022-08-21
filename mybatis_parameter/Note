@@ -78,6 +78,8 @@ MyBatis获取自增的主键
     useGeneratedKeys="true" keyProperty="id"
     useGeneratedKeys：当前添加功能是否使用自增主键
     keyProperty：将添加后的自增主键数值赋值给实体类的属性
-
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+            INSERT INTO t_user (id, username, password, age, gender, email) VALUES (null, #{username}, #{password}, #{age}, #{gender}, #{email})
+    </insert>
 
 

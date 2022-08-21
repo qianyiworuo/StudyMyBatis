@@ -8,6 +8,8 @@
 <!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
 <!--        <context:exclude-filter type="assignable" expression="com.wd.spring.controller.UserController"/>-->
     </context:component-scan>
+    <bean id="service" class="com.wd.spring.service.impl.UserServiceImpl"></bean>
+    <bean id="dao" class="com.wd.spring.dao.impl.UserDaoImpl"></bean>
     
 
 </beans>
