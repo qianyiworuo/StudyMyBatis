@@ -4,6 +4,8 @@ import com.wd.spring.dao.BookDao;
 import com.wd.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -11,6 +13,7 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void buyBook(Integer customerId, Integer bookId) {
         //查询图书的价格
         Integer price = bookDao.getBookPriceById(bookId);

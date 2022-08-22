@@ -62,3 +62,4 @@ FactoryBean
 代理模式
 JDBCTemplate
 声明式事务
+基于XML的声明式事务

@@ -16,4 +16,12 @@ public class TxByAnnotationTest {
     public void noTxAnnotationTest(){
         bookController.buyBook(1,1);
     }
+    @Test
+    public void TxAnnotationTest(){
+        bookController.buyBook(1,1);
+    }
+    @Test
+    public void TxAnnotationTest1(){
+        bookController.checkOut(1, new Integer[]{1,2});
+    }
 }
