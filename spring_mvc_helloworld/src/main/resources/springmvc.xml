@@ -13,8 +13,7 @@
         <property name="templateEngine">
             <bean class="org.thymeleaf.spring5.SpringTemplateEngine">
                 <property name="templateResolver">
-                    <bean
-                            class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+                    <bean class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
                         <!-- 视图前缀 -->
                         <property name="prefix" value="/WEB-INF/templates/"/>
                         <!-- 视图后缀 -->
