@@ -63,3 +63,5 @@ FactoryBean
 JDBCTemplate
 声明式事务
 基于XML的声明式事务
+SpringMVC配置
+RequestMapping注解

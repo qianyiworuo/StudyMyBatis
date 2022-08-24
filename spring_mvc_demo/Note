@@ -1,0 +1,19 @@
+RequestMapping注解
+    从注解名称上我们可以看到，@RequestMapping注解的作用就是将请求和处理请求的控制器方法关联
+    起来，建立映射关系。
+    SpringMVC 接收到指定的请求，就会来找到在映射关系中对应的控制器方法来处理这个请求。
+    注解位置
+        @RequestMapping标识一个类：设置映射请求的请求路径的初始信息
+        @RequestMapping标识一个方法：设置映射请求请求路径的具体信息
+        当类和方法上都有注解时，此时浏览器请求路径为：/类注解路径/方法注解路径。
+    注解的value属性
+        @RequestMapping注解的value属性通过请求的请求地址匹配请求映射
+        @RequestMapping注解的value属性是一个字符串类型的数组，表示该请求映射能够匹配多个请求地址
+        所对应的请求
+        @RequestMapping注解的value属性必须设置，至少通过一个请求地址匹配请求映射
+    注解的method属性
+        @RequestMapping注解的method属性通过请求的请求方式（get或post）匹配请求映射
+        @RequestMapping注解的method属性是一个RequestMethod类型的数组，表示该请求映射能够匹配
+        多种请求方式的请求
+        若当前请求的请求地址满足请求映射的value属性，但是请求方式不满足method属性，则浏览器报错
+        405：Request method 'POST' not supported
