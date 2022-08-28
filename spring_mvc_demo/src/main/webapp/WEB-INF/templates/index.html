@@ -10,6 +10,26 @@
     <a th:href="@{/test/abc}">注解value属性测试</a><br>
     <form th:action="@{/test/method}" method="post">
         <input type="submit" value="测试@RequestMapping的method属性">
+    </form><br>
+    <a th:href="@{/test/aaa/ant}">ant风格的路径测试</a><br>
+    <a th:href="@{/test/rest/ljc/1}">RequestMapping注解value属性中的占位符测试</a>
+    <hr>
+    <form th:action="@{/param/servletapi}" method="post">
+        用户名:<input type="text" name="username"><br>
+        密码:<input type="text"  name="password"><br>
+        <input type="submit" value="提交"><br>
+    </form>
+    <hr>
+    <form th:action="@{/param}" method="post">
+        用户名:<input type="text" name="userName"><br>
+        密码:<input type="text"  name="password"><br>
+        <input type="submit" value="提交"><br>
+    </form>
+    <hr>
+    <form th:action="@{/param/pojo}" method="post">
+        用户名:<input type="text" name="username"><br>
+        密码:<input type="text"  name="password"><br>
+        <input type="submit" value="提交"><br>
     </form>
 </body>
 </html>
