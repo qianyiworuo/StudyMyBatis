@@ -104,3 +104,38 @@ SpringMVC获取请求参数
                 <filter-name>CharacterEncodingFilter</filter-name>
                 <url-pattern>/*</url-pattern>
         </filter-mapping>
+域对象共享数据
+    向request域对象共享数据
+        使用ModelAndView向request域对象共享数据
+             @RequestMapping("/modelandview/test")
+                public ModelAndView test(){
+                    /**
+                     * ModelAndView有Model和View的功能
+                     * Model主要用于向请求域共享数据
+                     * View主要用于设置视图，实现页面跳转
+                     */
+                    ModelAndView mav = new ModelAndView();
+                    //向请求域共享数据
+                    mav.addObject("modelandviewrequestscope","Are you OK?");
+                    //设置视图，实现页面跳转
+                    mav.setViewName("success");
+                    return mav;
+                }
+        使用Model向request域对象共享数据
+            @RequestMapping("/model/test")
+                public String ModelTest(Model model){
+                    model.addAttribute("modeltest","Fan Thank You!");
+                    return "success";
+                }
+        使用ModelMap向request域对象共享数据
+            @RequestMapping("/modelmap/test")
+                public String ModelMapTest(ModelMap modelMap){
+                    modelMap.addAttribute("modelmaptest","How are you!");
+                    return "success";
+                }
+        使用Map向request域对象共享数据
+            @RequestMapping("/map/test")
+                public String ModelMapTest(Map<String, Object> map){
+                    map.put("maptest","What are you doing");
+                    return "success";
+                }

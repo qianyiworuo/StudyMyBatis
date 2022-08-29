@@ -67,3 +67,4 @@ SpringMVC配置
 RequestMapping注解
 SpringMVC获取请求参数
 解决获取请求参数的乱码问题
+域对象共享数据
