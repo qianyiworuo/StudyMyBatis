@@ -68,3 +68,10 @@ RequestMapping注解
 SpringMVC获取请求参数
 解决获取请求参数的乱码问题
 域对象共享数据
+    向request域对象共享数据
+    向session域对象共享数据
+SpringMVC的视图
+    ThymeleafView视图
+    转发视图
+    重定向视图
+视图控制器view-controller

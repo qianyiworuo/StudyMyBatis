@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PortalController {
-    @RequestMapping("/")
-    public String mainPage(){
-        return "index";
-    }
+//    @RequestMapping("/")
+//    public String mainPage(){
+//        return "index";
+//    }
 
 }
