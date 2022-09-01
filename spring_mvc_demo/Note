@@ -139,6 +139,7 @@ SpringMVC获取请求参数
                     map.put("maptest","What are you doing");
                     return "success";
                 }
+    Model、ModelMap、Map类型的参数其实本质上都是 BindingAwareModelMap 类型的。
     向session域对象共享数据
             HttpSessionServlet向session域对象共享数据
              @RequestMapping("/session/test")

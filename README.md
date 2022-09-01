@@ -75,3 +75,7 @@ SpringMVC的视图
     转发视图
     重定向视图
 视图控制器view-controller
+RESTful简介
+RESTful使用
+    查询所有用户信息：/user--->get
+    根据id查询所有用户信息：/user/1--->get 
