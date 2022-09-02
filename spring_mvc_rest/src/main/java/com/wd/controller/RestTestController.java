@@ -25,4 +25,21 @@ public class RestTestController {
         model.addAttribute("getUser","根据Id查询用户信息成功"+"id为："+ id);
         return "success";
     }
+
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public String addUser(Model model) {
+        model.addAttribute("addUser", "新增成功");
+        return "success";
+    }
+    @RequestMapping(value = "/user",method = RequestMethod.PUT)
+    public String updateUser(){
+        System.out.println("修改成功");
+        return "success";
+    }
+    @RequestMapping(value = "/user/{id}",method = RequestMethod.DELETE)
+    public String deleteUser(@PathVariable("id") Integer id){
+        System.out.println("删除成功"+"id为："+ id);
+        return "success";
+    }
+
 }

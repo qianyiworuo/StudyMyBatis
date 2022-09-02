@@ -8,7 +8,18 @@
     <h1>首页</h1><br>
 <hr>
     <a th:href="@{/user}">查询所有用户信息：/user--->get</a><br>
-    <a th:href="@{/user/1}">根据Id查询用户信息：/user/1--->get</a>
+    <a th:href="@{/user/1}">根据Id查询用户信息：/user/1--->get</a><br>
+    <form th:action="@{/user}" method="post">
+        <input type="submit" value="添加用户信息">
+    </form>
+    <form th:action="@{/user}" method="post">
+        <input type="hidden"  name="_method" value="PUT"/>
+        <input type="submit" value="修改用户信息">
+    </form>
+    <form th:action="@{/user/1}" method="post">
+        <input type="hidden"  name="_method" value="DELETE"/>
+        <input type="submit" value="删除用户信息">
+    </form>
 
 </body>
 </html>
