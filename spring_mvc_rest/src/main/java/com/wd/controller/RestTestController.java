@@ -32,12 +32,14 @@ public class RestTestController {
         return "success";
     }
     @RequestMapping(value = "/user",method = RequestMethod.PUT)
-    public String updateUser(){
+    public String updateUser(Model model){
+        model.addAttribute("updateUser","修改成功");
         System.out.println("修改成功");
         return "success";
     }
     @RequestMapping(value = "/user/{id}",method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable("id") Integer id){
+    public String deleteUser(Model model,@PathVariable("id") Integer id){
+        model.addAttribute("deleteUser","删除成功，id为："+ id);
         System.out.println("删除成功"+"id为："+ id);
         return "success";
     }

@@ -82,3 +82,5 @@ RESTful使用
     修改用户信息：/user--->put
     删除用户信息：/user/1--->delete
     HiddenHttpMethodFilter使用
+RESTful案例
+    查询所有返回列表
