@@ -25,6 +25,8 @@
             </bean>
         </property>
     </bean>
+<!--开启服务器默认静态资源servlet处理器-->
+    <mvc:default-servlet-handler/>
 <!--开启MVC注解驱动-->
     <mvc:annotation-driven/>
     <!--
@@ -33,4 +35,5 @@
         view-name：设置请求地址所对应的视图名称
     -->
     <mvc:view-controller path="/" view-name="index"></mvc:view-controller>
+    <mvc:view-controller path="/to/add" view-name="employee_add"></mvc:view-controller>
 </beans>

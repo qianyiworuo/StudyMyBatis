@@ -83,4 +83,7 @@ RESTful使用
     删除用户信息：/user/1--->delete
     HiddenHttpMethodFilter使用
 RESTful案例
-    查询所有返回列表
+    查询所有员工信息并返回列表
+     新增员工信息
+     修改员工信息
+     删除员工信息
