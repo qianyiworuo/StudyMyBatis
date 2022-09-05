@@ -38,3 +38,15 @@ AJAX
                 });
         </script>
     使用@RequestBody注解处理axios请求
+         //@RequestMapping("/axios/requestbody/test")
+            public void AxiosRequestBodyTest(HttpServletResponse resp, @RequestBody User user) throws IOException {
+                System.out.println("用户："+ user);
+                resp.getWriter().write(user.toString());
+
+            }
+            @RequestMapping("/axios/requestbody/test")
+            public void AxiosRequestBodyToMapTest(HttpServletResponse resp, @RequestBody Map<String,Object> map) throws IOException {
+                System.out.println("用户："+ map);
+                resp.getWriter().write(map.values().toString());
+
+            }

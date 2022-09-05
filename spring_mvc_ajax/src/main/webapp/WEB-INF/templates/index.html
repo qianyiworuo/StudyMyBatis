@@ -9,13 +9,17 @@
 <body>
     <div id="app">
         <h1  @click="AjaxTest1">首页</h1>
-        <input @click="AjaxTest" type="button" value="SpringMVC处理Ajax请求">
+        <input @click="AjaxTest" type="button" value="SpringMVC处理Ajax请求"><br>
+        <input @click="AxiosRequestBodyTest" type="button" value="@RequestBody处理Axios请求"><br>
         <div ref="qwer">{{shadiao}}</div>
+        <div>{{resp}}</div>
     </div>
     <script type="text/javascript">
         var vue = new Vue({
             el:"#app",
-            data:{shadiao:""},
+            data:{  shadiao:"",
+                    resp:""
+            },
             methods:{
                 AjaxTest(){
                     axios.post(
@@ -23,6 +27,15 @@
                         {username:"admin",password:"12345"}
                     ).then(Response=>{
                         console.log(Response.data);
+                    })
+                },
+                AxiosRequestBodyTest(){
+                    axios.post(
+                        "/axios/requestbody/test",
+                        {username:"ljc",password:"qwe123",age:22,gender:0}
+                    ).then(Response=>{
+                        console.log(Response.data);
+                        this.resp = (Response.data);
                     })
                 },
                 AjaxTest1(){
