@@ -1,1 +1,40 @@
 AJAX
+    axios格式
+        axios({
+               url:"",//请求路径
+               method: "",//请求方式
+               params:{},//请求参数
+               //以name=value&name=value的方式发送的请求参数；get或post请求都会被拼接到请求地址之后；请求参数可以通过request.getParameter()获取
+               data:{}//请求参数
+               //以json格式发送的请求参数；请求参数会被保存到请求报文的请求体传输到服务器；请求参数不可以通过request.getParameter()获取
+                    }).then(Response => {
+                         console.log(Response.data);
+                    }).catch(reason => {
+
+                    });
+    测试SpringMVC处理axios请求
+        <script type="text/javascript">
+                var vue = new Vue({
+                    el:"#app",
+                    data:{shadiao:""},
+                    methods:{
+                        AjaxTest(){
+                            axios.post(
+                                "/ajax/test?id=1001",
+                                {username:"admin",password:"12345"}
+                            ).then(Response=>{
+                                console.log(Response.data);
+                            })
+                        },
+                        AjaxTest1(){
+                            axios.get(
+                                "https://api.shadiao.pro/du",
+                            ).then(Response=>{
+                                this.shadiao = (Response.data.data.text);
+                            })
+                            // console.log(this.$refs.qwer);
+                        }
+                    }
+                });
+        </script>
+    使用@RequestBody注解处理axios请求

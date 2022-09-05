@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>新增用户</title>
+    <title>新增员工信息</title>
     <link rel="stylesheet" th:href="@{/static/css/index_work.css}">
 </head>
 <body>
     <form th:action="@{/employee}" method="post">
         <table>
             <tr>
-                <th colspan="2">用户信息</th>
+                <th colspan="2">新增员工信息</th>
             </tr>
             <tr>
                 <td>lastName</td>
@@ -26,13 +26,13 @@
             <tr>
                 <td>gender</td>
                 <td>
-                    <input type="radio" name="gender" value="0">female
                     <input type="radio" name="gender" value="1">male
+                    <input type="radio" name="gender" value="0">female
                 </td>
             </tr>
             <tr>
                 <th colspan="2">
-                    <input type="submit" value="提交">
+                    <button type="submit">提交</button>
                 </th>
             </tr>
         </table>

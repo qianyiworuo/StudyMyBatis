@@ -88,3 +88,5 @@ RESTful案例
      修改员工信息
      删除员工信息
 AJAX
+    axios格式
+    测试SpringMVC处理axios请求
