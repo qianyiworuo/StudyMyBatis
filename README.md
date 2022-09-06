@@ -91,3 +91,4 @@ AJAX
     axios格式
     测试SpringMVC处理axios请求
     使用@RequestBody注解处理axios请求
+    使用@ResponseBody注解响应json格式数据

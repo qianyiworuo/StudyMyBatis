@@ -5,6 +5,7 @@ import com.wd.pojo.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,5 +31,10 @@ public class AjaxControllerTest {
         resp.getWriter().write(map.values().toString());
 
     }
-
+    @RequestMapping("/responseBody/returnjson/test")
+    @ResponseBody
+    public User ResponseBodyReturnJsonTest() throws IOException {
+        User user = new User(1001, "ljc", "123qwe", 22, 0);
+        return user;
+    }
 }

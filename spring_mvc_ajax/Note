@@ -38,7 +38,18 @@ AJAX
                 });
         </script>
     使用@RequestBody注解处理axios请求
+        @RequestBody可以获取请求体信息，使用@RequestBody注解标识控制器方法的形参，当前请求的请
+        求体就会为当前注解所标识的形参赋值
+        在使用了axios发送ajax请求之后，浏览器发送到服务器的请求参数有两种格式：
+        1、name=value&name=value...，此时的请求参数可以通过request.getParameter()获取，对应
+        SpringMVC中，可以直接通过控制器方法的形参获取此类请求参数
+        2、{key:value,key:value,...}，此时无法通过request.getParameter()获取，之前我们使用操作
+        json的相关jar包gson或jackson处理此类请求参数，可以将其转换为指定的实体类对象或map集
+        合。在SpringMVC中，直接使用@RequestBody注解标识控制器方法的形参即可将此类请求参数
+        转换为java对象
          //@RequestMapping("/axios/requestbody/test")
+         //在控制器方法的形参位置，设置json格式的请求参数要转换成的java类型（实体类或map）的参
+         //数，并使用@RequestBody注解标识
             public void AxiosRequestBodyTest(HttpServletResponse resp, @RequestBody User user) throws IOException {
                 System.out.println("用户："+ user);
                 resp.getWriter().write(user.toString());
@@ -50,3 +61,28 @@ AJAX
                 resp.getWriter().write(map.values().toString());
 
             }
+    使用@ResponseBody注解响应json格式数据
+        服务器处理ajax请求之后，大多数情况都需要向浏览器响应一个java对象，此时必须将java对象转换为
+        json字符串才可以响应到浏览器，之前我们使用操作json数据的jar包gson或jackson将java对象转换为
+        json字符串。在SpringMVC中，我们可以直接使用@ResponseBody注解实现此功能
+        1、导入jackson的依赖
+        <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.12.1</version>
+        </dependency>
+        2、SpringMVC的配置文件中设置开启mvc的注解驱动
+        <!--开启mvc的注解驱动-->
+        <mvc:annotation-driven />
+        3、使用@ResponseBody注解标识控制器方法，在方法中，将需要转换为json字符串并响应到浏览器
+        的java对象作为控制器方法的返回值，此时SpringMVC就可以将此对象直接转换为json字符串并响应到浏览器
+        @RequestMapping("/responseBody/returnjson/test")
+        @ResponseBody
+            public User ResponseBodyReturnJsonTest() throws IOException {
+                User user = new User(1001, "ljc", "123qwe", 22, 0);
+                return user;
+            }
+        常见的Java对象转成json格式的结果
+            实体类--->json对象
+            map--->json对象
+            list、map集合--->json数组
