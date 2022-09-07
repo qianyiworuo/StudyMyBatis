@@ -25,6 +25,11 @@
             </bean>
         </property>
     </bean>
+    <!--必须通过文件解析器的解析才能将文件转换为MultipartFile对象-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+<!--<property name="defaultEncoding" value="UTF-8"></property>-->
+    </bean>
     <!--开启服务器默认静态资源servlet处理器-->
     <mvc:default-servlet-handler/>
     <!--开启MVC注解驱动-->
