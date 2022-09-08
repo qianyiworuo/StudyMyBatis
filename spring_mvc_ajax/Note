@@ -86,6 +86,9 @@ AJAX
             实体类--->json对象
             map--->json对象
             list、map集合--->json数组
+        @RestController注解
+            @RestController注解是springMVC提供的一个复合注解，标识在控制器的类上，就相当于为类添加了
+            @Controller注解，并且为其中的每个方法添加了@ResponseBody注解
 SpringMVC实现下载功能
      @RequestMapping("/down")
         public ResponseEntity<byte[]> testResponseEntity(HttpSession session) throws IOException {
@@ -132,3 +135,12 @@ SpringMVC实现上传功能
             System.out.println(finalPath);
             return "success";
         }
+     解决文件上传文件名重复问题(UUID)
+        //获取上传文件的文件名
+        String originalFilename = photo.getOriginalFilename();
+        //截取文件后缀名
+        String houZuiName = originalFilename.substring(originalFilename.indexOf("."));
+        //生成UUID
+        String sUUID = UUID.randomUUID().toString();
+        //拼接文件名
+        String fileName = houZuiName + sUUID;
