@@ -25,6 +25,24 @@
             </bean>
         </property>
     </bean>
+<!--异常处理器-->
+<!--    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+<!--        <property name="exceptionMappings">-->
+<!--            <props>-->
+<!--                &lt;!&ndash;-->
+<!--                    properties的键表示处理器方法执行过程中出现的异常-->
+<!--                    properties的值表示若出现指定异常时，设置一个新的视图名称，跳转到指定页面-->
+<!--                 &ndash;&gt;-->
+<!--                <prop key="java.lang.ArithmeticException">error</prop>-->
+
+<!--            </props>-->
+<!--        </property>-->
+<!--        &lt;!&ndash;-->
+<!--            exceptionAttribute属性设置一个属性名，将出现的异常信息在请求域中进行共享-->
+<!--        &ndash;&gt;-->
+<!--        <property name="exceptionAttribute" value="ex"></property>-->
+
+<!--    </bean>-->
     <!--必须通过文件解析器的解析才能将文件转换为MultipartFile对象-->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

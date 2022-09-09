@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 @Controller
 public class SpringmvcDownAndUpTest {
@@ -22,6 +23,12 @@ public class SpringmvcDownAndUpTest {
     public String testUpFile(MultipartFile photo, HttpSession session) throws IOException {
         //获取上传文件的文件名
         String originalFilename = photo.getOriginalFilename();
+        //获取上传文件的后缀名
+        String houZhuiName = originalFilename.substring(originalFilename.lastIndexOf("."));
+        //生成一个UUID
+        String sUUID = UUID.randomUUID().toString();
+        //拼接文件名
+        String fileName = houZhuiName + sUUID;
         ServletContext servletContext = session.getServletContext();
         //获取当前工程下photo目录的真实路径
         String realPath = servletContext.getRealPath("photo");
@@ -30,7 +37,7 @@ public class SpringmvcDownAndUpTest {
         if(!file.exists()){
             file.mkdir();
         }
-        String finalPath = realPath + File.separator + originalFilename;
+        String finalPath = realPath + File.separator + fileName;
         //实现上传功能
         photo.transferTo(new File(finalPath));
         System.out.println(finalPath);

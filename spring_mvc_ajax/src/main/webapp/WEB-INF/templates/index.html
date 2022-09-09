@@ -12,6 +12,7 @@
         <input @click="AjaxTest" type="button" value="SpringMVC处理Ajax请求"><br>
         <input @click="AxiosRequestBodyTest" type="button" value="@RequestBody处理Axios请求"><br>
         <input @click="ResponseBodyReturnJsonTest" type="button" value="@ResponseBody响应json格式数据"><br>
+        <a th:href="@{/exception/handler}">异常处理测试</a><br>
         <a th:href="@{/down}">图片下载</a><br>
         <form th:action="@{/up}" method="post" enctype="multipart/form-data">
             头像<input type="file" name="photo"><br>
