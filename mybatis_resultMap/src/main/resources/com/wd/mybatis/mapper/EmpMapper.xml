@@ -9,10 +9,10 @@
     </resultMap>
 <!--List<Emp> getAllEmp();-->
     <select id="getAllEmp" resultMap="empResultMap">
-        SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp
+        SELECT emp_id, emp_name, age, gender, email FROM t_emp
     </select>
     <select id="getAllEmpOld" resultType="Emp">
-        SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp
+        SELECT emp_id, emp_name, age, gender, email FROM t_emp
     </select>
     <resultMap id="empAndDeptResultMap1" type="Emp">
         <id column="emp_id" property="empId"></id>
@@ -36,9 +36,9 @@
 <!--Emp getEmpAndDeptByEmpId(@Param("empId")Integer empId);多对一-->
     <select id="getEmpAndDeptByEmpId" resultMap="empAndDeptResultMap">
         SELECT
-               A.emp_id, A.emp_name, A.age, A.gender, A.dept_id, B.dept_name
+               A.emp_id, A.emp_name, A.age, A.gender, A.email, B.dept_name
         FROM t_emp A LEFT JOIN t_dept B
-            ON A.dept_id = B.dept_id
+            ON A.email = B.dept_id
         WHERE A.emp_id = #{empId}
     </select>
 <!--Emp getEmpAndDeptByStepOne(@Param("empId") Integer empId);-->
@@ -61,10 +61,10 @@
         </association>
     </resultMap>
     <select id="getEmpAndDeptByStepOne" resultMap="getEmpAndDeptByStepResultMap">
-        SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp WHERE emp_id = #{empId}
+        SELECT emp_id, emp_name, age, gender, email FROM t_emp WHERE emp_id = #{empId}
     </select>
 <!--Emp getDeptAndEmpByStepTwo(@Param("deptId") Integer deptId);-->
     <select id="getDeptAndEmpByStepTwo" resultType="Emp">
-        SELECT emp_id, emp_name, age, gender, dept_id FROM t_emp WHERE dept_id = #{deptId}
+        SELECT emp_id, emp_name, age, gender, email FROM t_emp WHERE email = #{deptId}
     </select>
 </mapper>

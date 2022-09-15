@@ -47,7 +47,7 @@
     </select>
 <!--void insertBatchEmp(@Param("emps") List<Emp> emps);-->
     <insert id="insertBatchEmp">
-        INSERT INTO t_emp (emp_id, emp_name, age, gender, dept_id)  VALUES
+        INSERT INTO t_emp (emp_id, emp_name, age, gender, email)  VALUES
         <foreach collection="emps" item="emp" separator=",">
             (null, #{emp.empName}, #{emp.age}, #{emp.gender}, null )
         </foreach>

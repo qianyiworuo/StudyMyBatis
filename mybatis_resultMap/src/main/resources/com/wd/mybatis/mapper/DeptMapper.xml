@@ -20,7 +20,7 @@
         SELECT
                A.dept_id, A.dept_name, B.emp_id, B.emp_name, B.age, B.gender
         FROM t_dept A LEFT JOIN t_emp B
-            ON A.dept_id = B.dept_id
+            ON A.dept_id = B.email
         WHERE A.dept_id = #{deptId}
     </select>
 <!--Dept getDeptAndEmpByStepOne(@Param("deptId") Integer deptId);-->
