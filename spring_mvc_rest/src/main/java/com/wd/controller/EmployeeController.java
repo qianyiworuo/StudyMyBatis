@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Collection;
 
 /**
- *
- * 查询全部数据√           /employee      GET
- * 删除√                /employee/2    DELETE
- * 跳转到添加数据页面√    /toAdd         GET
- * 执行保存√           /employee      POST
+ *查询全部数据√           /employee      GET
+ *  * 删除√                /employee/2    DELETE
+ *  * 跳转到添加数据页面√    /toAdd         GET
+ *  * 执行保存√
+ *      /employee      POST
  * 跳转到更新数据页面√  /employee/2     GET
  * 执行更新√           /employee      PUT
  */

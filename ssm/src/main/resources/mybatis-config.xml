@@ -10,7 +10,7 @@
         objectFactory?,objectWrapperFactory?,reflectorFactory?,
         plugins?,environments?,databaseIdProvider?,mappers?
     -->
-    <properties resource="jdbc.properties"/>
+<!--    <properties resource="jdbc.properties"/>-->
     <settings>
         <!--将下划线映射为驼峰-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
@@ -19,23 +19,27 @@
         <!--按需加载-->
         <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
+    <plugins>
+        <!--配置分页插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
     <!--设置类型别名-->
-    <typeAliases>
-        <package name="com.wd.mybatis.pojo"/>
-    </typeAliases>
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="${jdbc.driver}"/>
-                <property name="url" value="${jdbc.url}"/>
-                <property name="username" value="${jdbc.username}"/>
-                <property name="password" value="${jdbc.password}"/>
-            </dataSource>
-        </environment>
-    </environments>
+<!--    <typeAliases>-->
+<!--        <package name="com.wd.mybatis.pojo"/>-->
+<!--    </typeAliases>-->
+<!--    <environments default="development">-->
+<!--        <environment id="development">-->
+<!--            <transactionManager type="JDBC"/>-->
+<!--            <dataSource type="POOLED">-->
+<!--                <property name="driver" value="${jdbc.driver}"/>-->
+<!--                <property name="url" value="${jdbc.url}"/>-->
+<!--                <property name="username" value="${jdbc.username}"/>-->
+<!--                <property name="password" value="${jdbc.password}"/>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+<!--    </environments>-->
 <!--引入mybatis映射文件-->
-    <mappers>
-        <package name="com.wd.mybatis.mapper"/>
-    </mappers>
+<!--    <mappers>-->
+<!--        <package name="com.wd.ssm.mapper.EmployeeMapper"/>-->
+<!--    </mappers>-->
 </configuration>
