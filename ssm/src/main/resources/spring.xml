@@ -34,7 +34,7 @@
             设置映射文件的路径
             若映射文件所在路径和mapper接口所在路径一致，则不需要设置
         -->
-        <!--<property name="mapperLocations" value="classpath:mapper/*.xml"/>-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
     <!--
         配置mapper接口的扫描配置

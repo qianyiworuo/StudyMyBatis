@@ -18,15 +18,15 @@
             <th>邮箱</th>
             <th>操作</th>
         </tr>
-        <tr th:each="employee,status : ${employeeList}">
+        <tr th:each="employee,status : ${list}">
             <td th:text="${status.count}"></td>
             <td th:text="${employee.empName}"></td>
             <td th:text="${employee.age}"></td>
             <td th:text="${employee.gender}"></td>
             <td th:text="${employee.email}"></td>
             <td>
-                <a th:href="">修改</a>
-                <a th:href="">删除</a>
+                <a href="" >修改</a>
+                <a href="" >删除</a>
             </td>
         </tr>
 

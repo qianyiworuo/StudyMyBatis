@@ -1,8 +1,5 @@
 package com.wd.ssm.pojo;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Employee {
     private Integer empId;
     private String empName;

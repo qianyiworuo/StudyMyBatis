@@ -17,6 +17,5 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getAllEmployee() {
         List<Employee> employeeList = employeeMapper.getEmployeeList();
         return employeeList;
-
     }
 }

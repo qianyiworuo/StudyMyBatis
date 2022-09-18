@@ -26,8 +26,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @RequestMapping(value = "/employee",method = RequestMethod.GET)
     public String getAllEmployee(Model model){
-        List<Employee> employeeList = employeeService.getAllEmployee();
-        model.addAttribute("list",employeeList);
+        List<Employee> list = employeeService.getAllEmployee();
+        model.addAttribute("list",list);
         return "employee_index";
     }
 }
